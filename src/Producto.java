@@ -1,80 +1,48 @@
-package com.techlab.ecommerce.model;
 
+/**
+ * Modelo que representa un producto de la tienda.
+ * El id se asigna automáticamente — no lo ingresa el usuario.
+ *
+ * En Spring Boot con JPA este id lo va a manejar la base de datos.
+ * Por eso más adelante vamos a agregar un constructor vacío y @Entity.
+ */
 public class Producto {
+
+    // Contador compartido por todos los objetos — genera ids únicos
+    private static int contadorId = 1;
+
     private int id;
     private String nombre;
     private double precio;
     private int stock;
-    private String categoria;
-    private boolean activo;
 
-    public Producto(String nombre, double precio, int stock, String categoria, boolean activo){
+    /**
+     * Constructor principal. El id se asigna automáticamente.
+     */
+    public Producto(String nombre, double precio, int stock) {
+        this.id = contadorId++;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
-        this.categoria = categoria;
-        this.activo = activo;
     }
 
-    public Producto(){
+    // Getters — necesarios para acceder a los datos desde otras clases
+    public int getId()        { return id; }
+    public String getNombre() { return nombre; }
+    public double getPrecio() { return precio; }
+    public int getStock()     { return stock; }
 
-    }
+    // Setters — permiten modificar precio y stock después de la creación
+    public void setPrecio(double precio) { this.precio = precio; }
+    public void setStock(int stock)      { this.stock = stock; }
 
-    public int getId(){
-        return id;
-    }
-
-    public void setId(int id){
-        this.id = id;
-    }
-    
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-    
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-    
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
-
+    /**
+     * Se llama automáticamente cuando hacemos System.out.println(producto).
+     */
     @Override
-    public String toString(){
-        return "ID: " + id +
-                " | " + nombre + 
-                " | $ " + precio +
-                " | Stock: " + stock +
-                " | Categoria: " + categoria +
-                " | Activo: " + activo;
+    public String toString() {
+        return "[ID: " + id + "] " + nombre +
+               " | Precio: $" + precio +
+               " | Stock: " + stock;
     }
 }
