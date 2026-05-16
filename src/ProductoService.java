@@ -1,19 +1,20 @@
 
 import java.util.ArrayList;
 
-/**
- * Servicio que contiene la lógica de negocio.
- * Gestiona la lista de productos en memoria.
- *
- * En Spring Boot:
- *   - Esta clase lleva @Service
- *   - El ArrayList se reemplaza por un JpaRepository
- *   - La lógica interna queda casi igual
- */
 public class ProductoService {
 
     // Lista en memoria — en Spring Boot esto va a ser una tabla MySQL
     private ArrayList<Producto> productos = new ArrayList<>();
+    
+    public void cargarProductosIniciales() {
+        productos.add(new Producto("Mouse", 2500, 10));
+        productos.add(new Producto("Teclado", 4500, 8));
+        productos.add(new Producto("Monitor", 75000, 5));
+        productos.add(new Producto("Notebook", 350000, 3));
+        productos.add(new Producto("Auriculares", 12000, 15));
+
+        System.out.println("✅ 5 productos cargados correctamente");
+    }
 
     /**
      * Agrega un nuevo producto. La validación de datos se hace en Main.
@@ -32,7 +33,8 @@ public class ProductoService {
             System.out.println("No hay productos cargados.");
             return;
         }
-        System.out.println("\n--- Listado de productos ---");
+        System.out.println("\nListado de Productos");
+        System.out.println("-".repeat(74));
         for (Producto p : productos) {
             System.out.println(p);
         }

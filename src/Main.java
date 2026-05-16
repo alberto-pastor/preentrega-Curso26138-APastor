@@ -1,16 +1,6 @@
 
 import java.util.Scanner;
 
-/**
- * Punto de entrada del programa.
- * Responsabilidades: leer datos, validar con if, delegar al servicio.
- *
- * Las validaciones son simples (if) — sin clases utilitarias,
- * para mantener el código accesible.
- *
- * En Spring Boot: Main se descarta.
- * El controlador REST + Postman lo reemplazan.
- */
 public class Main {
 
     public static void main(String[] args) {
@@ -18,16 +8,18 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         ProductoService servicio = new ProductoService();
         int opcion = -1;
-
-        System.out.println("=== Gestión de Productos ===");
-
+        int canti = 31;
         while (opcion != 0) {
-
-            System.out.println("\n¿Qué querés hacer?");
+            System.out.println("-".repeat(canti));
+            System.out.println("**** Gestión de Productos  ****");
+            System.out.println("-".repeat(canti));
+            System.out.println("**** Seleccione una opción ****");
+            System.out.println("-".repeat(canti));
             System.out.println("1. Agregar producto");
             System.out.println("2. Listar productos");
             System.out.println("3. Buscar por ID");
             System.out.println("4. Eliminar por ID");
+            System.out.println("5. Carga de datos de prueba");
             System.out.println("0. Salir");
             System.out.print("Opción: ");
 
@@ -119,13 +111,14 @@ public class Main {
                 } catch (ProductoNoEncontrado e) {
                     System.out.println(e.getMessage());
                 }
-
+            } else if (opcion == 5) {
+                servicio.cargarProductosIniciales();
             } else if (opcion != 0) {
                 System.out.println("Opción no válida. Elegí entre 0 y 4.");
             }
         }
 
-        System.out.println("¡Hasta luego!");
+        System.out.println("\n*** Fin ***");
         sc.close();
     }
 }
